@@ -19,7 +19,7 @@ let score = 0; //Количество очков
 let snake = [];   // Туловище змейки (вроде)
 snake[0] = {      // Туловище змейки (вроде)
     x: (0 * box), // Туловище змейки (вроде)
-    y: (1 * box)  // Туловище змейки (вроде)
+    y: (0 * box)  // Туловище змейки (вроде)
 };
 
 let snakeX = snake[0].x;  // Голова змейки (вроде)
@@ -46,7 +46,8 @@ let canvasheight = canvas.height/64;    //Переменная для разме
 
 document.addEventListener("keydown",direction);
 
-drawPole (1); //Отрисовка начального поля
+//drawPole (1); //Отрисовка начального поля
+newGame (1);
 ////drawGame(1);  //Отрисовка начального поля
 
 
@@ -54,38 +55,38 @@ drawPole (1); //Отрисовка начального поля
 
 function direction(event){                              //Нажатие клавиш
    // console.log("1_direction");
-    if(event.keyCode == 37 && dir != "right" ){
+    if(event.keyCode == 37 && dir != "right"  ){
         dir = "left";
        // moovSnake(1);
        // drawGame (1);
         //eatTail(newHead, snake);
        // testArr(snake);
     }
-    else if(event.keyCode == 38 && dir != "down"){
+    else if(event.keyCode == 38 && dir != "down" ){
         dir = "up"; 
         //moovSnake(1);
        // drawGame (1);
         //eatTail(newHead, snake);
        // testArr(snake);
     } 
-    else if(event.keyCode == 39 && dir != "left"){
+    else if(event.keyCode == 39 && dir != "left" ){
         dir = "right";  
        // moovSnake(1);
        // drawGame (1);
        // eatTail(newHead, snake);
        // testArr(snake);
     } 
-    else if(event.keyCode == 40 && dir != "up"){
+    else if(event.keyCode == 40 && dir != "up" ){
         dir = "down";  
        // moovSnake(1);
       //  drawGame (1);
        // eatTail(newHead, snake);
        // testArr(snake);
     }
-    else if(event.keyCode == 32){
-        newXYforLVLup(snake);
+    else if(event.keyCode == 13){
+        button.click();
     }
-
+    
 }
 
 function moovSnake(){ 
@@ -106,19 +107,48 @@ function moovSnake(){
         snakeY += box;
        // drawSnake(1);
         }
+    
         newHead = {
             x: snakeX,
             y: snakeY
-        };    
+        };  
+    
         snake.unshift(newHead);
+   
 
+        if(snakeX < 0){
+            newHead.x = box * (canvaswidth-1);
+            snakeX = box * (canvaswidth-1);
+           // drawSnake(1);
+              
+        }
+        if(snakeX > box * (canvaswidth-1)){
+            newHead.x = 0;
+            snakeX = 0;
+            //drawSnake(1);
+             
+        }
+        if(snakeY > box * (canvasheight-1)){
+            newHead.y = box * 1;
+            snakeY = box * 1;
+           // drawSnake(1);
+            
+        }
+        if(snakeY < box  * 1){
+            newHead.y = box * (canvasheight-1);
+            snakeY = box * (canvasheight-1);
+           // drawSnake(1);
+                    
+        }
+
+    
         if(snakeX == food.x-16 && snakeY == food.y-16){
             score++;  
             foodCreate(snake);
             
         }else{snake.pop();
         } 
-
+    
 }
 
 
@@ -128,32 +158,6 @@ function drawSnake(){                               //Отрисовка Зме�
     //console.log("2_drawSnake");
  
     eatTail(newHead, snake);
-   
-
-    if(snakeX < 0){
-        newHead.x = box * (canvaswidth-1);
-        snakeX = box * (canvaswidth-1);
-       // drawSnake(1);
-          
-    }
-    if(snakeX > box * (canvaswidth-1)){
-        newHead.x = 0;
-        snakeX = 0;
-        //drawSnake(1);
-         
-    }
-    if(snakeY > box * (canvasheight-1)){
-        newHead.y = box * 1;
-        snakeY = box * 1;
-       // drawSnake(1);
-        
-    }
-    if(snakeY < box  * 1){
-        newHead.y = box * (canvasheight-1);
-        snakeY = box * (canvasheight-1);
-       // drawSnake(1);
-                
-    }
 
 }
 
@@ -173,7 +177,7 @@ function foodCreate (arrk){
                 y: Math.floor(Math.random() * (canvasheight - 1) + 1) * box + 16 
             };
             foodNumber = Math.floor(Math.random() * 4);
-             console.log("ЖОПА");
+             //console.log("ЖОПА");
             foodCreate(snake);     
             break;
         }
@@ -251,24 +255,29 @@ function eatTail(head, arr){                    //Проверка "съела �
    // console.log("6_eatTail");
     for(let i = 3; i < arr.length; i++ ) {
         if(head.x == arr[i].x && head.y == arr[i].y){
+            canvas.width = 0;
             delete snake[0];
             newHead.x = 0;
             newHead.y = box * 2;
             snakeX = 0;
             snakeY = 0;     
-            canvas.width = 3 * box;
-            canvas.height = 4 * box; 
+            // canvas.width = 3 * box;
+            // canvas.height = 4 * box; 
             canvaswidth = canvas.width/64;
             canvasheight = canvas.height/64;
             food ={
                 x: (1*box)+16,
                 y: (2*box)+16
             };
+            dialog.show();
+            dir = "";
             LVLdown = 0;
             LVLup = 1;
             snake.length = 0;
             score = 0;
             LVL(1);
+ 
+            nikaMath (1);    
            // drawSnake(1);
            // drawGame(1);            
         }
@@ -278,7 +287,7 @@ function newXYforLVLup(arrS){               //Смещает всю змею п�
     for (let i = 0; i < arrS.length; i++){
         arrS[i].x = arrS[i].x + 64; 
         arrS[i].y = arrS[i].y + 64;
-        console.log(arrS[i].x, arrS[i].y, "Snake");
+       // console.log(arrS[i].x, arrS[i].y, "Snake");
     };
     snakeX = snakeX + 64;
     snakeY = snakeY + 64;
@@ -288,9 +297,68 @@ function newXYforLVLup(arrS){               //Смещает всю змею п�
    //drawSnake(1);
 };
 
+function nikaMath (){
+   
+nikaA = Math.floor(Math.random() * 10 + 1);
+nikaB = Math.floor(Math.random() * 10 + 1);
+//nikaC = Math.floor(Math.random() * 10 + 1);
 
-let PlayGame0 = setInterval(drawSnake, );
-let PlayGame1 = setInterval(moovSnake, 300);
-let PlayGame2 = setInterval(drawGame, );
+nikaC = nikaA + nikaB;
 
+document.getElementById('label').innerHTML = `${nikaA} + ${nikaB} =` ;
+
+};
+
+button.onclick = function(){
+   // console.log(parseInt(input.value));
+    // console.log(nikaC);
+    
+    if (parseInt(input.value) === nikaC){
+        newGame (1);
+      
+      //console.log(nikaA, nikaB, nikaC); 
+      input.value = '';
+      dialog.close();
+      
+    }else{
+      document.getElementById('label2').innerHTML = `Неверно, давай еще раз.` ;
+      input.value = '';
+      nikaMath(1);
+  }
+  
+};
+
+
+function newGame (){
+    delete snake[0];
+
+    newHead.x = 0;
+    newHead.y = 0;
+    snakeX = 0;
+    snakeY = 0;     
+    canvas.width = 4 * box;
+    canvas.height = 5 * box; 
+    canvaswidth = canvas.width/64;
+    canvasheight = canvas.height/64;
+    food ={
+        x: (1*box)+16,
+        y: (2*box)+16
+    };  
+    dir = "";
+    LVLdown = 0;
+    LVLup = 1;
+    snake.length = 0;
+    score = 0;
+    LVL(1);
+    snake[0] = {      // Туловище змейки (вроде)
+        x: (0 * box), // Туловище змейки (вроде)
+        y: (0 * box)  // Туловище змейки (вроде)
+    };
+ 
+
+ };
+
+ setInterval(drawSnake);
+ setInterval(moovSnake, 300);
+ setInterval(drawGame)
 

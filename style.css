@@ -7,6 +7,27 @@ canvas {
     background-color: #a8abff;
 }
 
-.asd2 {
+.Jop {
     background-color: #7bfbe8;
+    width: 100px;
+    height: 100px;
+    font-size: 80px;
+}
+
+.dialogClass {
+    background-color: #7bfbe8;
+    width: 1000px;
+    height: 500px;
+    border-radius: 15px;
+
+     
+}
+
+h1{
+    font-size: 48px;
+}
+
+button{
+margin-left: 400px;
+
 }
