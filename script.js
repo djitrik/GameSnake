@@ -45,7 +45,9 @@ let canvaswidth = canvas.width/64;      //Переменная для разме
 let canvasheight = canvas.height/64;    //Переменная для размера поля 
 
 document.addEventListener("keydown",direction);
-
+let gameInt1 = setInterval(drawSnake);
+let gameInt3 = setInterval(moovSnake, [600-LVLup]);
+let gameInt2 = setInterval(drawGame);
 //drawPole (1); //Отрисовка начального поля
 newGame (1);
 ////drawGame(1);  //Отрисовка начального поля
@@ -55,28 +57,28 @@ newGame (1);
 
 function direction(event){                              //Нажатие клавиш
    // console.log("1_direction");
-    if(event.keyCode == 37 && dir != "right"  ){
+    if((event.keyCode == 65 || event.keyCode == 37) && dir != "right"  ){
         dir = "left";
        // moovSnake(1);
        // drawGame (1);
         //eatTail(newHead, snake);
        // testArr(snake);
     }
-    else if(event.keyCode == 38 && dir != "down" ){
+    else if((event.keyCode == 87 || event.keyCode == 38) && dir != "down" ){
         dir = "up"; 
         //moovSnake(1);
        // drawGame (1);
         //eatTail(newHead, snake);
        // testArr(snake);
     } 
-    else if(event.keyCode == 39 && dir != "left" ){
+    else if((event.keyCode == 68 || event.keyCode == 39) && dir != "left" ){
         dir = "right";  
        // moovSnake(1);
        // drawGame (1);
        // eatTail(newHead, snake);
        // testArr(snake);
     } 
-    else if(event.keyCode == 40 && dir != "up" ){
+    else if((event.keyCode == 83 || event.keyCode == 40) && dir != "up" ){
         dir = "down";  
        // moovSnake(1);
       //  drawGame (1);
@@ -194,6 +196,9 @@ function LVL (){                                    // Повышения уро
     canvasheight = canvas.height/box;
     newXYforLVLup(snake); 
     drawPole (1);
+    clearInterval(gameInt3);  
+    gameInt3 = setInterval(moovSnake, [400-LVLup*50]);
+    
     
     } 
 };
@@ -255,6 +260,7 @@ function eatTail(head, arr){                    //Проверка "съела �
    // console.log("6_eatTail");
     for(let i = 3; i < arr.length; i++ ) {
         if(head.x == arr[i].x && head.y == arr[i].y){
+           
             canvas.width = 0;
             delete snake[0];
             newHead.x = 0;
@@ -277,7 +283,10 @@ function eatTail(head, arr){                    //Проверка "съела �
             score = 0;
             LVL(1);
  
-            nikaMath (1);    
+            nikaMath (1);  
+            clearInterval(gameInt1);
+            clearInterval(gameInt2);
+            clearInterval(gameInt3);  
            // drawSnake(1);
            // drawGame(1);            
         }
@@ -355,10 +364,12 @@ function newGame (){
         y: (0 * box)  // Туловище змейки (вроде)
     };
  
+    gameInt1 = setInterval(drawSnake);
+   // gameInt3 = setInterval(moovSnake, 
+    gameInt2 = setInterval(drawGame);
+  
 
  };
+ 
 
- setInterval(drawSnake);
- setInterval(moovSnake, 300);
- setInterval(drawGame)
 
