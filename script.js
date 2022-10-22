@@ -383,8 +383,8 @@ function gameOver(head, arr){
                  leaderBoard[i].name = leaderBoard[y].name;
                  leaderBoard[y].score = peremenaScore;
                  leaderBoard[y].name = peremenaUser;
-              
-            }
+              }
+            
          }
          }
          console.log(leaderBoard);
@@ -493,9 +493,9 @@ function newGame (){
     buttonNewGame.onclick = function(){ 
 
         if (inputNewGame.value != ''){
-            loadResult(1)
+           // loadResult(1)
             nameUser = inputNewGame.value;
-            newGame (1);
+           // newGame (1);
             document.getElementById('labelPlayer').innerHTML = `Игрок: ${inputNewGame.value}`;
             dialogNewGame.close();
         };
