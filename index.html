@@ -2,24 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    
+    <link rel="shortcut icon" href="snake.ico" type="image/x-icon">
    <link rel="stylesheet" href="style.css">
     <title>Игра на JS</title>
 </head>
 <body class = "asd">
-    <dialog id="dialog" class = "dialogClass">
-       <h1>Ты проиграл. Реши пример для продолжения</h1>
-       
-        <label class = "Jop" id="label">dsa</label>
+<dialog id="dialogPlayer" class = "dialogPlayerclass">
+  <label class = "User" id="labelPlayer"></label>
+  <br>
+  <label class = "User" class = "score" id="labelScoreMax">Максимум очков: 0</label>
+  <br>
+  <label class = "User" class = "score" id="labelScoreProshloe">Прошлый результат: 0</label>
+  <br>
+  <label class = "User" class = "score" id="labelScoreKolichestvo">Количество попыток: 1</label>
+</dialog>
 
-        <input class = "Jop"; id="input" name="name" type="type" WidthRequest="100">
-        <button class = "Jop" id="button">ok</button>
-        <label class = "Jop" id="label2"></label>
-      </dialog>
+<dialog id="dialogLeaderBoard" class = "dialogLeaderBoardClass">
+  <div class = "User">
+    <label  id="top0">Таблица лидеров</label>
     
-    <canvas id="game" ></canvas>
-   
+  </div>
   
+</dialog>
+
+            <dialog id="dialogNewGame" class = "dialogClassNewGame">
+              <h2 id="hh2"></h2>
+              
+               <label class = "JopNewGame" id="labelNewGame">dsa</label>
+        
+               <input class = "JopNewGame"; id="inputNewGame" name="name" type="type" WidthRequest="100">
+               <button class = "buttonNewGameClass" id="buttonNewGame">ok</button>
+               <label class = "JopNewGame" id="label2NewGame"></label>
+             </dialog>
+             <dialog id="dialog" class = "dialogClass">
+              <h1 id="hh1">Реши пример для продолжения</h1>
+              
+               <label class = "Jop" id="label">dsa</label>
+       
+               <input class = "Jop"; id="input" name="name" type="type" WidthRequest="100">
+               <button class = "JopButton" id="button">ok</button>
+               <br>
+               <label class = "Jop" id="label2"></label>
+             </dialog>
+
+<canvas class = "cavasius" id="game" ></canvas> 
+ 
  <script src="script.js"></script>
 </body>
 </html>
